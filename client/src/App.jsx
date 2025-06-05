@@ -1,9 +1,10 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import MovieIndex from "./movies/MovieIndex";
 
 function App() {
   return (
-    <div>
-      <h1>Hello world!</h1>
+    <div className="container">
+      <MovieIndex />
     </div>
   );
 }
