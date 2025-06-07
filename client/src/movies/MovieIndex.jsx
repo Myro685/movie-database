@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { apiGet } from "../utils/api";
+import MovieTable from "./MovieTable";
 
-const MovieIndex = (props) => {
+const MovieIndex = () => {
   const [movieState, setMovies] = useState([]);
 
   useEffect(() => {
@@ -10,12 +11,9 @@ const MovieIndex = (props) => {
 
   return (
     <div>
-      <h1>Filmy</h1>
-      <ul>
-        {movieState.map((movie) => (
-          <li key={movie._id}>{movie.name}</li>
-        ))}
-      </ul>
+      <h1>Seznam filmů</h1>
+      <hr />
+      <MovieTable items={movieState} label="Počet filmů:" />
     </div>
   );
 };
