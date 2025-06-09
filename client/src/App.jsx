@@ -7,8 +7,11 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
+
 import MovieIndex from "./movies/MovieIndex";
+import MovieDetail from "./movies/MovieDetail";
 import PersonIndex from "./persons/PersonIndex";
+import PersonDetail from "./persons/PersonDetail";
 
 function App() {
   return (
@@ -31,8 +34,14 @@ function App() {
 
         <Routes>
           <Route index element={<Navigate to={"/movies"} />} />
-          <Route exact path="/movies" element={<MovieIndex />} />
-          <Route exact path="/people" element={<PersonIndex />} />
+          <Route path="/movies">
+            <Route index element={<MovieIndex />} />
+            <Route path="show/:id" element={<MovieDetail />} />
+          </Route>
+          <Route path="/people">
+            <Route index element={<PersonIndex />} />
+            <Route path="show/:id" element={<PersonDetail />} />
+          </Route>
         </Routes>
       </div>
     </Router>

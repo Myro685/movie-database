@@ -12,15 +12,13 @@ const PersonDetail = () => {
   useEffect(() => {
     apiGet("/api/people/" + id)
       .then((data) => {
-        setPerson(
-          {
-            name: data.name,
-            birthDate: dateStringFormatter(data.birthDate, true),
-            country: data.country,
-            biography: data.biography,
-            role: data.role,
-          }.cat
-        );
+        setPerson({
+          name: data.name,
+          birthDate: dateStringFormatter(data.birthDate, true),
+          country: data.country,
+          biography: data.biography,
+          role: data.role,
+        });
       })
       .catch((error) => {
         console.log(error);
