@@ -22,7 +22,7 @@ const MovieForm = () => {
   const [directorState, setDirector] = useState("");
   const [actorsState, setActors] = useState([]);
   const [genresState, setGenres] = useState([]);
-  const [avaibleState, setAvaible] = useState(false);
+  const [availableState, setAvailable] = useState(false);
   const [sentState, setSent] = useState(false);
   const [successState, setSuccess] = useState(false);
   const [errorState, setError] = useState();
@@ -76,10 +76,10 @@ const MovieForm = () => {
         setYear(data.year);
         setDirector(data.directorID);
         setActors(data.actorIDs);
-        setGenre(data.genres);
-        setAvaible(data.isAvailable);
+        setGenres(data.genres);
+        setAvailable(data.isAvailable);
       });
-      apiGet("api/directors").then((data) => setDirectorList(data));
+      apiGet("/api/directors").then((data) => setDirectorList(data));
       apiGet("/api/actors").then((data) => setActorList(data));
       apiGet("/api/genres").then((data) => setGenreList(data));
     }

@@ -28,12 +28,21 @@ const MovieTable = ({ label, items }) => {
                   >
                     Zobrazit
                   </Link>
+                  <Link
+                    to={"/movies/edit/" + item._id}
+                    className="btn btn-sm btn-warning"
+                  >
+                    Zobrazit
+                  </Link>
                 </div>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <Link to={"/movies/create"} className="btn btn-success">
+        Nový film
+      </Link>
     </div>
   );
 };

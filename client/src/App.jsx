@@ -10,8 +10,10 @@ import {
 
 import MovieIndex from "./movies/MovieIndex";
 import MovieDetail from "./movies/MovieDetail";
+import MovieForm from "./movies/MovieForm";
 import PersonIndex from "./persons/PersonIndex";
 import PersonDetail from "./persons/PersonDetail";
+import PersonForm from "./persons/PersonForm";
 
 function App() {
   return (
@@ -37,10 +39,14 @@ function App() {
           <Route path="/movies">
             <Route index element={<MovieIndex />} />
             <Route path="show/:id" element={<MovieDetail />} />
+            <Route path="create" element={<MovieForm />} />
+            <Route path="edit/:id" element={<MovieForm />} />
           </Route>
           <Route path="/people">
             <Route index element={<PersonIndex />} />
             <Route path="show/:id" element={<PersonDetail />} />
+            <Route path="create" element={<PersonForm />} />
+            <Route path="edit/:id" element={<PersonForm />} />
           </Route>
         </Routes>
       </div>

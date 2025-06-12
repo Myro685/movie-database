@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const PersonTable = ({ label, items }) => {
+const PersonTable = ({ label, items, link }) => {
   return (
     <div>
       <p>
@@ -28,12 +28,23 @@ const PersonTable = ({ label, items }) => {
                   >
                     Zobrazit
                   </Link>
+                  <Link
+                    to={"/people/edit/" + item._id}
+                    className="btn btn-sm btn-warning"
+                  >
+                    Upravit
+                  </Link>
                 </div>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      {link ? (
+        <Link to={"/people/create"} className="btn btn-success">
+          Nová osobnost
+        </Link>
+      ) : null}
     </div>
   );
 };
