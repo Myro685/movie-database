@@ -1,8 +1,8 @@
 import React from "react";
 
-const InputField = (props) => {
+export function InputField(props) {
   // podporované typy pro element input
-  const INPUTS = ["text", "number", "data", "password", "email"];
+  const INPUTS = ["text", "number", "date", "password", "email"];
 
   // validace elementu a typu
   const type = props.type.toLowerCase();
@@ -50,6 +50,6 @@ const InputField = (props) => {
       )}
     </div>
   );
-};
+}
 
 export default InputField;

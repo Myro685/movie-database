@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-
-import { apiGet } from "../utils/api";
+import { useNavigate, useParams } from "react-router-dom";
+import { apiGet, apiPost, apiPut } from "../utils/api";
 
 import FlashMessage from "../components/FlashMessage";
 import InputField from "../components/InputField";
@@ -11,8 +10,9 @@ import InputCheck from "../components/InputCheck";
 import Genre from "./Genre";
 
 const MovieForm = () => {
-  // inicializace proměnných pomocí useState()
+  // parametr url adresy (id filmu), stejně jako v detailu filmu
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [directorListState, setDirectorList] = useState([]);
   const [actorListState, setActorList] = useState([]);
@@ -27,7 +27,6 @@ const MovieForm = () => {
   const [successState, setSuccess] = useState(false);
   const [errorState, setError] = useState();
 
-  // handleChange(e) {obsluha vstupů formuláře}
   const handleChange = (e) => {
     const target = e.target;
 
@@ -63,12 +62,34 @@ const MovieForm = () => {
       setAvailable(value);
     }
   };
-  // handleSubmit(e) {obsluha odeslání formuláře}
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const body = {
+      name: movieNameState,
+      year: yearState,
+      directorID: directorState,
+      actorIDs: actorsState,
+      genres: genresState,
+      isAvailable: availableState,
+    };
+
+    (id ? apiPut("/api/movies/" + id, body) : apiPost("/api/movies/", body))
+      .then((data) => {
+        console.log("succcess", data);
+        setSent(true);
+        setSuccess(true);
+        navigate("/movies");
+      })
+      .catch((error) => {
+        console.log(error.message);
+        setError(error.message);
+        setSent(true);
+        setSuccess(false);
+      });
   };
 
-  // useEffect() {načtení existujícího záznamu}
   useEffect(() => {
     if (id) {
       apiGet("/api/movies/" + id).then((data) => {
@@ -79,16 +100,15 @@ const MovieForm = () => {
         setGenres(data.genres);
         setAvailable(data.isAvailable);
       });
-      apiGet("/api/directors").then((data) => setDirectorList(data));
-      apiGet("/api/actors").then((data) => setActorList(data));
-      apiGet("/api/genres").then((data) => setGenreList(data));
     }
+
+    apiGet("/api/directors").then((data) => setDirectorList(data));
+    apiGet("/api/actors").then((data) => setActorList(data));
+    apiGet("/api/genres").then((data) => setGenreList(data));
   }, [id]);
 
-  // vykreslení formuláře
   const sent = sentState;
   const success = successState;
-
   return (
     <div>
       <h1>{id ? "Upravit" : "Vytvořit"} film</h1>

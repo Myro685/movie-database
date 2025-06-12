@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputSelect = (props) => {
+export function InputSelect(props) {
   const multiple = props.multiple;
   const required = props.required || false;
 
@@ -20,12 +20,13 @@ const InputSelect = (props) => {
         onChange={props.handleChange}
         value={props.value}
       >
-        {required /* prázdná hodnota zakázaná (pro úpravu záznamu) */ ? (
+        {required ? (
+          /* prázdná hodnota zakázaná (pro úpravu záznamu) */
           <option disabled value={emptySelected}>
             {props.prompt}
           </option>
         ) : (
-          /* prázdná hodnota zakázaná (pro úpravu záznamu) */
+          /* prázdná hodnota povolená (pro filtrování přehledu) */
           <option key={0} value={emptySelected}>
             ({props.prompt})
           </option>
@@ -47,6 +48,6 @@ const InputSelect = (props) => {
       </select>
     </div>
   );
-};
+}
 
 export default InputSelect;

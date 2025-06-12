@@ -1,10 +1,10 @@
 import React from "react";
 
-const InputCheck = (props) => {
+export function InputCheck(props) {
   // podporované typy pro element input
   const INPUTS = ["checkbox", "radio"];
 
-  // validace typue
+  // validace typu
   const type = props.type.toLowerCase();
   const checked = props.checked || "";
 
@@ -28,6 +28,6 @@ const InputCheck = (props) => {
       </label>
     </div>
   );
-};
+}
 
 export default InputCheck;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { apiGet } from "../utils/api";
+import { apiGet, apiDelete } from "../utils/api";
 import PersonTable from "./PersonTable";
 
 const PersonIndex = () => {
@@ -8,8 +8,28 @@ const PersonIndex = () => {
 
   useEffect(() => {
     apiGet("/api/directors").then((data) => setDirectors(data));
+
     apiGet("/api/actors").then((data) => setActors(data));
   }, []);
+
+  const deleteDirector = async (id) => {
+    try {
+      await apiDelete("/api/people/" + id);
+      setDirectors(directorsState.filter((item) => item._id !== id));
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  const deleteActor = async (id) => {
+    console.log("Mazání herce s id:", id);
+    try {
+      await apiDelete("/api/people/" + id);
+      setActors(actorsState.filter((item) => item._id !== id));
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   const moreActors = actorsState.length > directorsState.length;
 
@@ -21,6 +41,7 @@ const PersonIndex = () => {
       <div className="row">
         <div className="col">
           <PersonTable
+            deletePerson={deleteActor}
             items={actorsState}
             label="Počet herců:"
             link={!moreActors}
@@ -28,6 +49,7 @@ const PersonIndex = () => {
         </div>
         <div className="col">
           <PersonTable
+            deletePerson={deleteDirector}
             items={directorsState}
             label="Počet režisérů:"
             link={moreActors}
@@ -37,5 +59,4 @@ const PersonIndex = () => {
     </div>
   );
 };
-
 export default PersonIndex;

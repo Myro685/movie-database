@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const MovieTable = ({ label, items }) => {
+const MovieTable = ({ label, items, deleteMovie }) => {
   return (
     <div>
       <p>
         {label} {items.length}
       </p>
+
       <table className="table table-bordered">
         <thead>
           <tr>
@@ -32,8 +33,14 @@ const MovieTable = ({ label, items }) => {
                     to={"/movies/edit/" + item._id}
                     className="btn btn-sm btn-warning"
                   >
-                    Zobrazit
+                    Upravit
                   </Link>
+                  <button
+                    onClick={() => deleteMovie(item._id)}
+                    className="btn btn-sm btn-danger"
+                  >
+                    Odstranit
+                  </button>
                 </div>
               </td>
             </tr>

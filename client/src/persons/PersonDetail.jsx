@@ -21,7 +21,7 @@ const PersonDetail = () => {
         });
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   }, [id]);
 
@@ -33,7 +33,7 @@ const PersonDetail = () => {
       <hr />
       <h3>{person.name}</h3>
       <p>
-        {role}, nar. {person.birthDate}, {person.country}
+        {role}, nar. {person.birthDate}, {person.country}.
       </p>
       <p>
         <strong>Biografie:</strong>

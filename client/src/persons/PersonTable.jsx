@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const PersonTable = ({ label, items, link }) => {
+const PersonTable = ({ label, items, link, deletePerson }) => {
   return (
     <div>
       <p>
         {label} {items.length}
       </p>
+
       <table className="table table-bordered">
         <thead>
           <tr>
@@ -34,6 +35,12 @@ const PersonTable = ({ label, items, link }) => {
                   >
                     Upravit
                   </Link>
+                  <button
+                    onClick={() => deletePerson(item._id)}
+                    className="btn btn-sm btn-danger"
+                  >
+                    Odstranit
+                  </button>
                 </div>
               </td>
             </tr>

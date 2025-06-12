@@ -1,4 +1,4 @@
-import React, { act, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { apiGet } from "../utils/api";
@@ -21,12 +21,9 @@ const MovieDetail = () => {
           dateAdded: data.dateAdded,
         });
       })
-      .catch(
-        (error) => {
-          console.log(error);
-        },
-        [id]
-      );
+      .catch((error) => {
+        console.error(error);
+      });
   }, [id]);
 
   const genres = movie.genres?.map((item) => Genre[item]);
@@ -45,7 +42,7 @@ const MovieDetail = () => {
         <strong>Režie: </strong>
         {movie.director?.name}
         <br />
-        <strong>Hrají:</strong>
+        <strong>Hrají: </strong>
         {actors?.join(", ")}
         <br />
         <strong>Dostupný: </strong>

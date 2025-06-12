@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-
-import { apiGet } from "../utils/api";
+import { useNavigate, useParams } from "react-router-dom";
+import { apiGet, apiPost, apiPut } from "../utils/api";
 import { dateStringFormatter } from "../utils/dateStringFormatter";
 
 import FlashMessage from "../components/FlashMessage";
@@ -12,6 +11,7 @@ import Role from "./Role";
 
 const PersonForm = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [personNameState, setPersonName] = useState("");
   const [birthDateState, setBirthDate] = useState("");
@@ -36,6 +36,27 @@ const PersonForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const body = {
+      name: personNameState,
+      birthDate: birthDateState,
+      country: countaryState,
+      biography: biographyState,
+      role: personRoleState,
+    };
+
+    (id ? apiPut("/api/people/" + id, body) : apiPost("/api/people/", body))
+      .then((data) => {
+        setSent(true);
+        setSuccess(true);
+        navigate("/people");
+      })
+      .catch((error) => {
+        console.log(error.message);
+        setError(error.message);
+        setSent(true);
+        setSuccess(false);
+      });
   };
 
   const sent = sentState;
@@ -43,7 +64,7 @@ const PersonForm = () => {
 
   return (
     <div>
-      <h1>{id ? "Upravit" : "Vztvořit"} osobnost</h1>
+      <h1>{id ? "Upravit" : "Vytvořit"} osobnost</h1>
       <hr />
       {errorState ? (
         <div className="alert alert-danger">{errorState}</div>
